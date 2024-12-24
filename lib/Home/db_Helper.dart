@@ -42,11 +42,65 @@ class DbHelper{
    List args=[amount,category,date,isincome];
    int result = await db!.rawInsert(query,args);
    log("insert status $result");
+   fetchData();
   }
-  Future<void> FetchData()
+  Future<List<Map<String, dynamic>>> fetchData() async {
+    Database? db = await database;
+    String query = "SELECT * FROM budget";
+    List<Map<String, dynamic>> result = await db!.rawQuery(query);
+    return result;
+  }
+
+
+  Future<void>  deleteData(int id)
   async {
-    Database? db=await database ;
-    String query="SELECT * FROM budget";
-    await db!.rawQuery(query);
+    Database? db=await database;
+    String query="DELETE FROM budget WHERE id = ?";
+    List args=[id];
+    await db!.rawDelete(query,args);
+  }
+
+  Future<void> dbUpdateRecord({
+    required int id,
+    required double amt,
+    required String category,
+    required int isIncome,
+    required String date,
+  }) async {
+    Database? db = await database;
+
+     String query = '''UPDATE budget SET 
+    amount = ?, 
+    category = ?, 
+    isincome = ?, 
+    date = ? 
+    WHERE id = ?''';
+
+    List args = [amt, category, isIncome, date, id];
+
+    try{
+      final result = await db?.rawUpdate(query, args);
+      log("Update status : $result");
+    } catch(e) {
+      log("Failed to update in table!!! : $e");
+    }
+  }
+
+  // FILTER BY CATEGORY
+  Future<List<Map<String, Object?>>> dbFetchByFilter(int siIncome) async {
+    Database? db = await database;
+
+    String query = '''SELECT * FROM budget WHERE $siIncome = isincome''';
+
+    try{
+      final result = await db!.rawQuery(query);
+      log("Fetch status for $siIncome: $result");
+      return result;
+    } catch (e) {
+      log("Failed to fetch from table for isincome");
+    }
+
+    return [];
   }
 }
+

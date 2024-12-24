@@ -1,96 +1,104 @@
 import 'package:flutter/material.dart';
 
 class BalanceCard extends StatelessWidget {
+  final List<Color> gradientColors;
+  final String cardTitle;
+  final String balance;
+
+  BalanceCard({
+    required this.gradientColors,
+    this.cardTitle = "Cash",
+    this.balance = "\$ 124 890.01",
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(25),
+      height: 170,
+      width: 300,
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
         gradient: LinearGradient(
-          colors: [Color(0xFF0072FF), Color(0xFF00C6FF)],
+          colors: gradientColors, // Use passed gradient colors
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black12,
             blurRadius: 10,
-            spreadRadius: 2,
+            offset: Offset(3, 3),
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          Text(
-            "Total Balance",
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.white70,
+          // Card Title with Edit Icon
+          Positioned(
+            top: 15,
+            left: 20,
+            child: Row(
+              children: [
+                Text(
+                  cardTitle,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(width: 10),
+                Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                  size: 18,
+                ),
+              ],
             ),
           ),
-          SizedBox(height: 8),
-          Text(
-            "\$12,500.00",
-            style: TextStyle(
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+
+          // Balance Amount
+          Positioned(
+            bottom: 20,
+            left: 20,
+            child: Text(
+              balance,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5,
+              ),
             ),
           ),
-          SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              BalanceDetail(
-                label: "Income",
-                amount: "\$8,000.00",
-                color: Colors.greenAccent,
+
+          // Circular Overlay Decorations
+          Positioned(
+            right: -40,
+            top: -40,
+            child: Container(
+              height: 200,
+              width: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.2),
               ),
-              BalanceDetail(
-                label: "Expenses",
-                amount: "\$3,500.00",
-                color: Colors.redAccent,
+            ),
+          ),
+          Positioned(
+            right: -80,
+            top: -80,
+            child: Container(
+              height: 250,
+              width: 250,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.18),
               ),
-            ],
+            ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class BalanceDetail extends StatelessWidget {
-  final String label;
-  final String amount;
-  final Color color;
-
-  BalanceDetail({required this.label, required this.amount, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.white70,
-          ),
-        ),
-        SizedBox(height: 5),
-        Text(
-          amount,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
-      ],
     );
   }
 }
