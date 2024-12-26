@@ -75,11 +75,14 @@ The **Budget Tracking App** is a powerful and user-friendly tool to help individ
 
 ## Screenshots
 
+### Expense Tracker
+<img src="https://github.com/user-attachments/assets/0ec87dc1-fee3-42fa-86f4-7da85e9e9618" width="400">
+
 ### Home Screen
 <img src="https://github.com/user-attachments/assets/97821180-03e4-43c5-9233-c49be0144da4" width="400">
 
-### Expense Tracker
-<img src="https://github.com/user-attachments/assets/0ec87dc1-fee3-42fa-86f4-7da85e9e9618" width="400">
+### Insert Tracker
+<img src="https://github.com/user-attachments/assets/297fd138-af3a-4078-bb07-531373420427" width="400">
 
 ### Budget Manager
 <img src="https://github.com/user-attachments/assets/bb0a155b-b409-49e2-9011-129a163fa28d" width="400">
